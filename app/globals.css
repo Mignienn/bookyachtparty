@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #__next {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* ── slide transition ── */
+.slide-enter  { opacity: 0; transform: translateX(60px); }
+.slide-active { opacity: 1; transform: translateX(0); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.25,.8,.25,1); }
+.slide-back   { opacity: 0; transform: translateX(-60px); }
+
+.gold-shimmer { color: #64B5F6; }
+
+/* calendar color-scheme for dark */
+input[type="date"] { color-scheme: dark; }
