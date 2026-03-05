@@ -150,7 +150,7 @@ function Stepper({ step }: { step: number }) {
               ].join(" ")}>
                 {done ? CHECK : ICONS[i]}
               </div>
-              <span className={["text-[11px] font-medium whitespace-nowrap",
+              <span className={["text-[11px] font-medium whitespace-pre-line text-center leading-tight",
                 active?"text-[#64B5F6]":done?"text-green-400":"text-white/30"
               ].join(" ")}>{label}</span>
             </div>
@@ -239,38 +239,59 @@ function DJBadge() {
 /* ─── bottom trust bar ─── */
 function BottomBar() {
   return (
-    <div className="relative z-20 bg-white px-4 md:px-8 py-2.5">
-      <div className="flex items-center justify-between gap-2">
-        {/* left: rating + payment */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5">
-            <span className="text-yellow-500 text-sm">★</span>
-            <span className="text-gray-900 font-bold text-xs">4.9/5</span>
+    <>
+      {/* MOBILE: white bar below content */}
+      <div className="flex-shrink-0 md:hidden bg-[#111827] px-4 py-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-yellow-400 text-xs">★</span>
+            <span className="text-white font-bold text-[10px]">4.9/5</span>
+            <span className="text-white/40 text-[10px]">| 2400+ Happy Clients</span>
           </div>
-          <span className="text-gray-400 text-xs hidden sm:inline">|</span>
-          <span className="text-gray-500 text-xs hidden sm:inline">2400+ Happy Clients · Google · Trustpilot</span>
+          <div className="flex items-center gap-1.5 text-[10px]">
+            <svg className="w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span className="text-white/50">Secured by</span>
+            <span className="font-semibold text-white/80">Stripe</span>
+          </div>
         </div>
-        {/* right: stripe */}
-        <div className="flex items-center gap-1.5 text-xs flex-shrink-0">
-          <svg className="w-3.5 h-3.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="flex items-center gap-2 mt-1">
+          <div className="bg-white rounded px-1.5 py-0.5 text-[8px] font-black text-blue-800 tracking-widest">VISA</div>
+          <div className="flex">
+            <div className="w-3.5 h-3.5 rounded-full bg-red-500 -mr-1.5"/>
+            <div className="w-3.5 h-3.5 rounded-full bg-yellow-400"/>
+          </div>
+          <div className="bg-[#003087] rounded px-1.5 py-0.5 text-[8px] font-bold text-white">Pay<span className="text-[#009cde]">Pal</span></div>
+          <div className="bg-[#007bc1] rounded px-1.5 py-0.5 text-[8px] font-bold text-white tracking-wide">AMEX</div>
+        </div>
+      </div>
+      {/* DESKTOP: dark translucent bar at bottom */}
+      <div className="hidden md:flex flex-shrink-0 items-center justify-between bg-black/50 backdrop-blur-md border-t border-white/10 px-8 py-2.5">
+        <div className="flex items-center gap-2">
+          <div className="bg-white rounded px-1.5 py-0.5 text-[10px] font-black text-blue-800 tracking-widest">VISA</div>
+          <div className="flex">
+            <div className="w-4 h-4 rounded-full bg-red-500 -mr-1.5"/>
+            <div className="w-4 h-4 rounded-full bg-yellow-400"/>
+          </div>
+          <div className="bg-[#003087] rounded px-1.5 py-0.5 text-[9px] font-bold text-white">Pay<span className="text-[#009cde]">Pal</span></div>
+          <div className="bg-[#007bc1] rounded px-1.5 py-0.5 text-[9px] font-bold text-white tracking-wide">AMEX</div>
+        </div>
+        <div className="flex items-center gap-2 text-xs">
+          <span className="text-yellow-400 tracking-wider">★★★★★</span>
+          <span className="text-white font-bold">4.9/5</span>
+          <span className="text-white/25">|</span>
+          <span className="text-white/50">2400+ Happy Clients · Google · Trustpilot</span>
+        </div>
+        <div className="flex items-center gap-1.5 text-white/45 text-xs">
+          <svg className="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
           </svg>
-          <span className="text-gray-500">Secured by</span>
-          <span className="font-semibold text-gray-700">Stripe</span>
+          <span className="text-white/40">Secured by</span>
+          <span className="font-semibold text-white/70">Stripe</span>
         </div>
       </div>
-      {/* payment row */}
-      <div className="flex items-center gap-2 mt-1.5">
-        <div className="bg-[#1a1f71] rounded px-1.5 py-0.5 text-[9px] font-black text-white tracking-widest">VISA</div>
-        <div className="flex">
-          <div className="w-4 h-4 rounded-full bg-red-500 -mr-1.5"/>
-          <div className="w-4 h-4 rounded-full bg-yellow-400"/>
-        </div>
-        <div className="bg-[#003087] rounded px-1.5 py-0.5 text-[9px] font-bold text-white">Pay<span className="text-[#009cde]">Pal</span></div>
-        <div className="bg-[#007bc1] rounded px-1.5 py-0.5 text-[9px] font-bold text-white tracking-wide">AMEX</div>
-        <span className="text-gray-400 text-xs ml-1 hidden sm:inline">2400+ Happy Clients · Google · Trustpilot</span>
-      </div>
-    </div>
+    </>
   );
 }
 
@@ -373,7 +394,7 @@ export default function BookingWizard() {
   if (!mounted) return <div className="w-screen h-screen bg-[#0a0f2c]" />;
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden" style={{fontFamily:"'Poppins',system-ui,sans-serif"}}>
+    <div className="relative w-screen h-[100dvh] overflow-hidden" style={{fontFamily:"'Poppins',system-ui,sans-serif"}}>
 
       {/* ── crossfade backgrounds ── */}
       {BG.map((src, i) => (
