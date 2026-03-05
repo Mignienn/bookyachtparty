@@ -550,7 +550,7 @@ export default function BookingWizard() {
                 </button>
               )}
               {(step===1||step===2) && (
-                <a href="https://wa.me/34600000000" target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/14388883791?text=Hi%2C%20I%27m%20interested%20in%20booking%20a%20yacht%20in%20Marbella!" target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-bold px-4 py-2.5 md:px-5 md:py-3 rounded-full text-xs md:text-sm transition-colors"
                   style={{boxShadow:"0 4px 20px rgba(34,197,94,0.4)"}}>
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
