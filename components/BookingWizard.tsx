@@ -4,8 +4,8 @@ import { useState, useEffect, useMemo } from "react";
 
 /* ─── background per step (Pexels – verified URLs) ─── */
 const BG = [
-  // Step 1 – Women partying on a boat at sea (Pexels 10955631)
-  "https://images.pexels.com/photos/10955631/pexels-photo-10955631.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
+  // Step 1 – Boat party in Marbella (custom photo)
+  "/hero-party.jpg",
   // Step 2 – Woman on yacht with champagne glass (Pexels 17323514)
   "https://images.pexels.com/photos/17323514/pexels-photo-17323514.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
   // Step 3 – White luxury yacht on the sea (Pexels 6752179)
