@@ -6,12 +6,12 @@ import { useState, useEffect, useMemo } from "react";
 const BG = [
   // Step 1 – Boat party in Marbella (custom photo)
   "/hero-party.jpg",
-  // Step 2 – Woman on yacht with champagne glass (Pexels 17323514)
-  "https://images.pexels.com/photos/17323514/pexels-photo-17323514.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-  // Step 3 – White luxury yacht on the sea (Pexels 6752179)
-  "https://images.pexels.com/photos/6752179/pexels-photo-6752179.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-  // Step 4 – DJ performing with neon lights (Pexels 34009280)
-  "https://images.pexels.com/photos/34009280/pexels-photo-34009280.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
+  // Step 2 – Girls dancing on yacht
+  "/step2-yacht-girls.jpg",
+  // Step 3 – Puerto Banús marina
+  "/step3-marina.jpg",
+  // Step 4 – DJ set on yacht at sunset
+  "/step4-dj-sunset.jpg",
 ];
 
 /* overlay gradient per step — festive colour theme */
