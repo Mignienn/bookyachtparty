@@ -125,7 +125,7 @@ function Calendar({ value, onChange }: { value: string; onChange: (d: string) =>
 }
 
 /* ─── step progress bar ─── */
-const LABELS = ["Date","Guests","Budget","Discover"];
+const LABELS = ["Date","Guests","Budget","Discover\nYachts"];
 const ICONS  = [
   <svg key="c" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>,
   <svg key="p" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>,
@@ -171,10 +171,13 @@ function Card({ icon, title, sub, selected, onClick }: {
   return (
     <button type="button" onClick={onClick}
       className={[
-        "group relative flex items-center gap-4 w-full rounded-2xl px-4 py-3 md:px-5 md:py-4 border text-left transition-colors duration-200 cursor-pointer",
+        "group relative w-full rounded-2xl border transition-colors duration-200 cursor-pointer",
+        /* mobile: vertical centered layout | desktop: horizontal */
+        "flex flex-col items-center text-center px-3 py-4 gap-2",
+        "md:flex-row md:text-left md:items-center md:gap-4 md:px-5 md:py-4",
         selected
-          ? "bg-white/10 border-[#64B5F6] shadow-xl shadow-[#64B5F6]/25 scale-[1.01]"
-          : "bg-black/25 border-white/10 backdrop-blur-sm hover:bg-white/8 hover:border-[#64B5F6]/40 hover:scale-[1.005]"
+          ? "bg-white/10 border-[#64B5F6] shadow-xl shadow-[#64B5F6]/25"
+          : "bg-black/25 border-white/10 backdrop-blur-sm hover:bg-white/8 hover:border-[#64B5F6]/40"
       ].join(" ")}>
       <div className={[
         "flex-shrink-0 w-12 h-12 rounded-full border-2 flex items-center justify-center transition-colors duration-200",
@@ -182,12 +185,12 @@ function Card({ icon, title, sub, selected, onClick }: {
                  : "bg-white/5 border-white/15 text-white/50 group-hover:border-[#64B5F6]/50 group-hover:text-white/80"
       ].join(" ")}>{icon}</div>
       <div>
-        <div className="font-semibold text-base text-white">{title}</div>
-        <div className="text-white/45 text-sm mt-0.5">{sub}</div>
+        <div className="font-semibold text-sm md:text-base text-white">{title}</div>
+        <div className="text-white/45 text-xs md:text-sm mt-0.5 inline-block bg-white/5 rounded-full px-2 py-0.5 md:bg-transparent md:px-0 md:py-0 md:rounded-none">{sub}</div>
       </div>
       {selected && (
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-500/40">
-          <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="absolute right-2 top-2 md:right-4 md:top-1/2 md:-translate-y-1/2 w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#64B5F6] flex items-center justify-center shadow-lg shadow-[#64B5F6]/40">
+          <svg className="w-3 h-3 md:w-3.5 md:h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/>
           </svg>
         </div>
@@ -236,31 +239,36 @@ function DJBadge() {
 /* ─── bottom trust bar ─── */
 function BottomBar() {
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-20 bg-black/50 backdrop-blur-md border-t border-white/10 px-4 md:px-8 py-2.5 flex items-center justify-between gap-2">
-      {/* payment */}
-      <div className="flex items-center gap-2 flex-shrink-0">
-        <div className="bg-white rounded px-1.5 py-0.5 text-[10px] font-black text-blue-800 tracking-widest">VISA</div>
+    <div className="relative z-20 bg-white px-4 md:px-8 py-2.5">
+      <div className="flex items-center justify-between gap-2">
+        {/* left: rating + payment */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
+            <span className="text-yellow-500 text-sm">★</span>
+            <span className="text-gray-900 font-bold text-xs">4.9/5</span>
+          </div>
+          <span className="text-gray-400 text-xs hidden sm:inline">|</span>
+          <span className="text-gray-500 text-xs hidden sm:inline">2400+ Happy Clients · Google · Trustpilot</span>
+        </div>
+        {/* right: stripe */}
+        <div className="flex items-center gap-1.5 text-xs flex-shrink-0">
+          <svg className="w-3.5 h-3.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+          <span className="text-gray-500">Secured by</span>
+          <span className="font-semibold text-gray-700">Stripe</span>
+        </div>
+      </div>
+      {/* payment row */}
+      <div className="flex items-center gap-2 mt-1.5">
+        <div className="bg-[#1a1f71] rounded px-1.5 py-0.5 text-[9px] font-black text-white tracking-widest">VISA</div>
         <div className="flex">
           <div className="w-4 h-4 rounded-full bg-red-500 -mr-1.5"/>
           <div className="w-4 h-4 rounded-full bg-yellow-400"/>
         </div>
         <div className="bg-[#003087] rounded px-1.5 py-0.5 text-[9px] font-bold text-white">Pay<span className="text-[#009cde]">Pal</span></div>
         <div className="bg-[#007bc1] rounded px-1.5 py-0.5 text-[9px] font-bold text-white tracking-wide">AMEX</div>
-      </div>
-      {/* rating */}
-      <div className="hidden sm:flex items-center gap-2 text-xs">
-        <span className="text-yellow-400 tracking-wider">★★★★★</span>
-        <span className="text-white font-bold">4.9/5</span>
-        <span className="text-white/25 hidden md:inline">|</span>
-        <span className="text-white/50 hidden md:inline">120+ Happy Clients · Google · Trustpilot</span>
-      </div>
-      {/* stripe */}
-      <div className="flex items-center gap-1.5 text-white/45 text-xs flex-shrink-0">
-        <svg className="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-        </svg>
-        <span className="hidden sm:inline text-white/40">Secured by</span>
-        <span className="font-semibold text-white/70">Stripe</span>
+        <span className="text-gray-400 text-xs ml-1 hidden sm:inline">2400+ Happy Clients · Google · Trustpilot</span>
       </div>
     </div>
   );
@@ -382,7 +390,7 @@ export default function BookingWizard() {
       {/* particles & glow removed for stability */}
 
       {/* ── layout ── */}
-      <div className="relative z-10 flex flex-col h-full pb-12">
+      <div className="relative z-10 flex flex-col h-full">
 
         {/* logo */}
         <Logo/>
@@ -426,7 +434,7 @@ export default function BookingWizard() {
 
         {/* step content */}
         <div className={`flex-1 overflow-y-auto px-4 md:px-8 mt-4 min-h-0 ${contentClass}`}>
-          <div className="w-full max-w-2xl mx-auto pb-20">
+          <div className="w-full max-w-2xl mx-auto">
 
             {/* step 0 – date */}
             <div style={{display: step===0 ? "block" : "none"}}>
@@ -439,7 +447,7 @@ export default function BookingWizard() {
             {/* step 1 – guests */}
             <div style={{display: step===1 ? "block" : "none"}}>
                 <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-3">SELECT THE GROUP SIZE FOR YOUR TRIP</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                <div className="grid grid-cols-2 gap-2 md:gap-3">
                   {GUESTS.map(o=><Card key={o.title} icon={o.icon} title={o.title} sub={o.sub} selected={guests===o.title} onClick={()=>pickGuests(o.title)}/>)}
                 </div>
             </div>
@@ -447,7 +455,7 @@ export default function BookingWizard() {
             {/* step 2 – budget */}
             <div style={{display: step===2 ? "block" : "none"}}>
                 <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-3">SELECT YOUR BUDGET RANGE</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                <div className="grid grid-cols-2 gap-2 md:gap-3">
                   {BUDGETS.map(o=><Card key={o.title} icon={o.icon} title={o.title} sub={o.sub} selected={budget===o.title} onClick={()=>pickBudget(o.title)}/>)}
                 </div>
             </div>
@@ -485,50 +493,54 @@ export default function BookingWizard() {
           </div>
         </div>
 
-        {/* ── back button ── */}
-        {step>0 && !submitted && (
-          <button onClick={back}
-            className="absolute bottom-14 left-5 z-20 flex items-center gap-2 bg-white/8 hover:bg-white/15 backdrop-blur-sm border border-white/15 text-white px-4 py-2.5 rounded-full text-sm font-medium transition-colors">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
-            </svg>
-            Back
-          </button>
-        )}
-
-        {/* ── CTA button ── */}
+        {/* ── action buttons ── */}
         {!submitted && (
-          <div className="absolute bottom-14 right-5 z-20">
-            {step===0 && (
-              <button onClick={next} disabled={!date}
-                className="group flex items-center gap-3 bg-[#64B5F6] hover:bg-[#90CAF9] text-white font-bold px-10 py-4 rounded-full text-lg transition-colors hover:shadow-2xl hover:shadow-[#64B5F6]/40 disabled:opacity-35 disabled:cursor-not-allowed"
-                style={{boxShadow: date ? "0 4px 30px rgba(100,181,246,0.4)" : undefined}}>
-                Continue
-                <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </button>
-            )}
-            {(step===1||step===2) && (
-              <a href="https://wa.me/34600000000" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2.5 bg-green-500 hover:bg-green-400 text-white font-bold px-5 py-3 rounded-full text-sm transition-colors"
-                style={{boxShadow:"0 4px 20px rgba(34,197,94,0.4)"}}>
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                Connect with Agent
-              </a>
-            )}
-            {step===3 && (
-              <button onClick={submit} disabled={loading||!name||!email||!phone}
-                className="flex items-center gap-2.5 bg-[#64B5F6] hover:bg-[#90CAF9] text-white font-bold px-6 py-3 rounded-full text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{boxShadow:(name&&email&&phone)?"0 4px 30px rgba(201,168,76,0.4)":undefined}}>
-                {loading
-                  ? <><div className="w-4 h-4 border-2 border-[#0a0f2c]/30 border-t-[#0a0f2c] rounded-full animate-spin"/>Sending…</>
-                  : <>Check Availability <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></>
-                }
-              </button>
-            )}
+          <div className="flex-shrink-0 flex items-center justify-between px-5 py-3 z-20">
+            {/* back */}
+            <div>
+              {step>0 && (
+                <button onClick={back}
+                  className="flex items-center gap-2 text-white text-sm font-medium hover:text-white/80 transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
+                  </svg>
+                  Back
+                </button>
+              )}
+            </div>
+            {/* CTA */}
+            <div>
+              {step===0 && (
+                <button onClick={next} disabled={!date}
+                  className="group flex items-center gap-3 bg-[#64B5F6] hover:bg-[#90CAF9] text-white font-bold px-8 py-3 md:px-10 md:py-4 rounded-full text-base md:text-lg transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
+                  style={{boxShadow: date ? "0 4px 30px rgba(100,181,246,0.4)" : undefined}}>
+                  Continue
+                  <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </button>
+              )}
+              {(step===1||step===2) && (
+                <a href="https://wa.me/34600000000" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2.5 bg-green-500 hover:bg-green-400 text-white font-bold px-5 py-3 rounded-full text-sm transition-colors"
+                  style={{boxShadow:"0 4px 20px rgba(34,197,94,0.4)"}}>
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                  Connect with Agent
+                </a>
+              )}
+              {step===3 && (
+                <button onClick={submit} disabled={loading||!name||!email||!phone}
+                  className="flex items-center gap-2.5 bg-[#64B5F6] hover:bg-[#90CAF9] text-white font-bold px-6 py-3 rounded-full text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  style={{boxShadow:(name&&email&&phone)?"0 4px 30px rgba(201,168,76,0.4)":undefined}}>
+                  {loading
+                    ? <><div className="w-4 h-4 border-2 border-[#0a0f2c]/30 border-t-[#0a0f2c] rounded-full animate-spin"/>Sending…</>
+                    : <>Check Availability <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></>
+                  }
+                </button>
+              )}
+            </div>
           </div>
         )}
       </div>
