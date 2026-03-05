@@ -438,7 +438,7 @@ export default function BookingWizard() {
                 <span className="hidden md:inline-block bg-white/10 border border-[#64B5F6]/50 text-[#64B5F6] font-bold text-2xl px-5 py-1 rounded-xl backdrop-blur-sm shadow-lg shadow-[#64B5F6]/20">Free DJ Included</span>
               </div>
               <div className="mt-1.5 md:hidden">
-                <span className="inline-block bg-white/10 border border-[#64B5F6]/50 text-[#64B5F6] font-bold text-sm px-3 py-1 rounded-xl backdrop-blur-sm">🎵 Free DJ Included</span>
+                <span className="inline-block bg-white/10 border border-[#64B5F6]/50 text-[#64B5F6] font-bold text-sm px-3 py-1 rounded-xl backdrop-blur-sm">Free DJ Included</span>
               </div>
               <p className="text-white/55 mt-1.5 md:mt-2.5 text-xs md:text-sm">Pick your date to view available yachts on live calendar</p>
           </div>
