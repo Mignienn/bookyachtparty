@@ -24,8 +24,8 @@ export default function Hero() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1920&q=85&fit=crop"
-          alt="Luxury yacht in Marbella"
+          src="/hero-party.jpg"
+          alt="Yacht party in Marbella"
           fill
           priority
           className="object-cover object-center"
