@@ -93,25 +93,25 @@ function Calendar({ value, onChange }: { value: string; onChange: (d: string) =>
   const isTod  = (d: number) => str(d) === today.toISOString().split("T")[0];
   const isSel  = (d: number) => str(d) === value;
   return (
-    <div className="w-full max-w-sm mx-auto select-none">
+    <div className="w-full max-w-2xl mx-auto select-none">
       <div className="flex items-center justify-between mb-4">
         <button onClick={() => setV(vv => vv.m===0?{m:11,y:vv.y-1}:{m:vv.m-1,y:vv.y})}
           className="w-8 h-8 rounded-full flex items-center justify-center text-white/50 hover:text-[#64B5F6] hover:bg-white/10 text-xl transition-colors">‹</button>
-        <span className="text-white font-semibold tracking-wide text-sm">{MONTHS[v.m]} {v.y}</span>
+        <span className="text-white font-bold tracking-wide text-lg">{MONTHS[v.m]} {v.y}</span>
         <button onClick={() => setV(vv => vv.m===11?{m:0,y:vv.y+1}:{m:vv.m+1,y:vv.y})}
           className="w-8 h-8 rounded-full flex items-center justify-center text-white/50 hover:text-[#64B5F6] hover:bg-white/10 text-xl transition-colors">›</button>
       </div>
-      <div className="grid grid-cols-7 mb-1">
-        {WDAYS.map(d=><div key={d} className="text-center text-white/30 text-xs py-1">{d}</div>)}
+      <div className="grid grid-cols-7 mb-2">
+        {WDAYS.map(d=><div key={d} className="text-center text-white/40 text-sm py-1 font-medium">{d}</div>)}
       </div>
-      <div className="grid grid-cols-7 gap-y-1">
+      <div className="grid grid-cols-7 gap-y-2">
         {Array(first).fill(null).map((_,i)=><div key={`b${i}`}/>)}
         {Array.from({length:count},(_,i)=>i+1).map(d=>{
           const p=past(d),s=isSel(d),t=isTod(d);
           return (
             <button key={d} disabled={p} onClick={()=>onChange(str(d))}
               className={[
-                "h-9 w-9 mx-auto rounded-full flex items-center justify-center text-sm font-medium transition-colors duration-150",
+                "h-11 w-11 mx-auto rounded-full flex items-center justify-center text-base font-medium transition-colors duration-150",
                 s ? "bg-[#64B5F6] text-[#0a0f2c] font-bold shadow-lg shadow-[#64B5F6]/50 scale-110 " :
                 p ? "text-white/15 cursor-not-allowed" :
                 t ? "border border-[#64B5F6]/60 text-[#64B5F6] hover:bg-[#64B5F6]/20" :
@@ -143,7 +143,7 @@ function Stepper({ step }: { step: number }) {
           <div key={label} className="flex items-center">
             <div className="flex flex-col items-center gap-1">
               <div className={[
-                "w-9 h-9 rounded-full flex items-center justify-center text-sm transition-colors duration-400 border-2",
+                "w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center text-sm transition-colors duration-400 border-2",
                 done   ? "bg-green-500 border-green-500 text-white shadow-lg shadow-green-500/30" :
                 active ? "bg-[#64B5F6] border-[#64B5F6] text-[#0a0f2c] " :
                          "bg-white/5 border-white/20 text-white/40"
@@ -171,7 +171,7 @@ function Card({ icon, title, sub, selected, onClick }: {
   return (
     <button type="button" onClick={onClick}
       className={[
-        "group relative flex items-center gap-4 w-full rounded-2xl px-5 py-4 border text-left transition-colors duration-200 cursor-pointer",
+        "group relative flex items-center gap-4 w-full rounded-2xl px-4 py-3 md:px-5 md:py-4 border text-left transition-colors duration-200 cursor-pointer",
         selected
           ? "bg-white/10 border-[#64B5F6] shadow-xl shadow-[#64B5F6]/25 scale-[1.01]"
           : "bg-black/25 border-white/10 backdrop-blur-sm hover:bg-white/8 hover:border-[#64B5F6]/40 hover:scale-[1.005]"
@@ -388,7 +388,7 @@ export default function BookingWizard() {
         <Logo/>
 
         {/* headline + stepper */}
-        <div className={`text-center px-4 mt-3 flex-shrink-0 ${contentClass}`}>
+        <div className={`text-center px-4 mt-1 md:mt-3 flex-shrink-0 ${contentClass}`}>
 
           <div style={{display: step===0 ? "block" : "none"}}>
               <h1 className="text-white font-bold text-2xl md:text-4xl lg:text-5xl leading-tight mt-3">
@@ -398,21 +398,21 @@ export default function BookingWizard() {
                 <span className="inline-block bg-[#64B5F6] text-white font-bold text-2xl md:text-3xl px-5 py-1 rounded-xl" style={{fontFamily:"'Poppins',sans-serif"}}>
                   In Marbella
                 </span>
-                <span className="text-[#64B5F6] font-semibold text-sm md:text-base tracking-wide">Free DJ Included</span>
+                <span className="inline-block bg-white/10 border border-[#64B5F6]/50 text-[#64B5F6] font-bold text-lg md:text-2xl px-5 py-1 rounded-xl backdrop-blur-sm shadow-lg shadow-[#64B5F6]/20">Free DJ Included</span>
               </div>
               <p className="text-white/55 mt-2.5 text-sm">Pick your date to view available yachts on live calendar</p>
           </div>
           <div style={{display: step===1 ? "block" : "none"}}>
-              <h1 className="text-white font-bold text-3xl md:text-5xl" style={{fontFamily:"'Poppins',sans-serif"}}>
+              <h1 className="text-white font-bold text-2xl md:text-5xl" style={{fontFamily:"'Poppins',sans-serif"}}>
                 Who&apos;s Coming Aboard?
               </h1>
-              <p className="text-white/55 mt-2 text-sm md:text-base">How many people are in your trip group?</p>
+              <p className="text-white/55 mt-1 md:mt-2 text-sm md:text-base">How many people are in your trip group?</p>
           </div>
           <div style={{display: step===2 ? "block" : "none"}}>
-              <h1 className="text-white font-bold text-3xl md:text-5xl" style={{fontFamily:"'Poppins',sans-serif"}}>
+              <h1 className="text-white font-bold text-2xl md:text-5xl" style={{fontFamily:"'Poppins',sans-serif"}}>
                 What Is Your Budget Range?
               </h1>
-              <p className="text-white/55 mt-2 text-sm md:text-base">This helps us find the perfect yacht for you.</p>
+              <p className="text-white/55 mt-1 md:mt-2 text-sm md:text-base">This helps us find the perfect yacht for you.</p>
           </div>
           <div style={{display: step===3 && !submitted ? "block" : "none"}}>
               <h1 className="text-white font-bold text-2xl md:text-4xl leading-tight" style={{fontFamily:"'Poppins',sans-serif"}}>
@@ -421,18 +421,17 @@ export default function BookingWizard() {
               <p className="text-white/50 mt-2 text-sm max-w-md mx-auto">Fill out the form to unlock your free DJ and be redirected to the calendar with yacht availability.</p>
           </div>
 
-          <Stepper step={step}/>
+          <div className="mt-2 md:mt-4"><Stepper step={step}/></div>
         </div>
 
         {/* step content */}
-        <div className={`flex-1 flex items-center justify-center px-4 md:px-8 mt-4 min-h-0 ${contentClass}`}>
-          <div className="w-full max-w-2xl">
+        <div className={`flex-1 overflow-y-auto px-4 md:px-8 mt-4 min-h-0 ${contentClass}`}>
+          <div className="w-full max-w-2xl mx-auto pb-20">
 
             {/* step 0 – date */}
             <div style={{display: step===0 ? "block" : "none"}}>
-              <div className="bg-black/30 backdrop-blur-md rounded-3xl p-5 md:p-8 border border-white/10"
-                   style={{boxShadow:"0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)"}}>
-                <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-5">SELECT DATE</p>
+              <div className="rounded-3xl p-5 md:p-8">
+                <p className="text-white font-semibold text-[11px] tracking-widest uppercase mb-5">SELECT DATE</p>
                 <Calendar value={date} onChange={setDate}/>
               </div>
             </div>
@@ -440,7 +439,7 @@ export default function BookingWizard() {
             {/* step 1 – guests */}
             <div style={{display: step===1 ? "block" : "none"}}>
                 <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-3">SELECT THE GROUP SIZE FOR YOUR TRIP</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                   {GUESTS.map(o=><Card key={o.title} icon={o.icon} title={o.title} sub={o.sub} selected={guests===o.title} onClick={()=>pickGuests(o.title)}/>)}
                 </div>
             </div>
@@ -448,7 +447,7 @@ export default function BookingWizard() {
             {/* step 2 – budget */}
             <div style={{display: step===2 ? "block" : "none"}}>
                 <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-3">SELECT YOUR BUDGET RANGE</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                   {BUDGETS.map(o=><Card key={o.title} icon={o.icon} title={o.title} sub={o.sub} selected={budget===o.title} onClick={()=>pickBudget(o.title)}/>)}
                 </div>
             </div>
@@ -467,7 +466,7 @@ export default function BookingWizard() {
                   <p className="text-white/60 text-sm leading-relaxed">Thank you <span className="text-white font-semibold">{name}</span>. Our team will reach out within 2 hours with your yacht + free DJ confirmed.</p>
                   <p className="text-[#64B5F6] text-sm mt-2 font-medium">{email}</p>
                   <div className="mt-6 pt-6 border-t border-white/10 flex items-center justify-center gap-2 text-[#64B5F6] text-sm font-semibold">
-                    🎵 Free DJ Included With Your Booking
+                    Free DJ Included With Your Booking
                   </div>
                 </div>
               ) : (
