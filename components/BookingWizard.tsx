@@ -174,13 +174,13 @@ function Card({ icon, title, sub, selected, onClick }: {
         "group relative w-full rounded-2xl border transition-colors duration-200 cursor-pointer",
         /* mobile: vertical centered layout | desktop: horizontal */
         "flex flex-col items-center text-center px-3 py-4 gap-2",
-        "md:flex-row md:text-left md:items-center md:gap-4 md:px-5 md:py-4",
+        "md:flex-row md:text-left md:items-center md:gap-5 md:px-7 md:py-6",
         selected
           ? "bg-white/10 border-[#64B5F6] shadow-xl shadow-[#64B5F6]/25"
           : "bg-black/25 border-white/10 backdrop-blur-sm hover:bg-white/8 hover:border-[#64B5F6]/40"
       ].join(" ")}>
       <div className={[
-        "flex-shrink-0 w-12 h-12 rounded-full border-2 flex items-center justify-center transition-colors duration-200",
+        "flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full border-2 flex items-center justify-center transition-colors duration-200",
         selected ? "bg-[#64B5F6]/20 border-[#64B5F6] text-[#64B5F6]"
                  : "bg-white/5 border-white/15 text-white/50 group-hover:border-[#64B5F6]/50 group-hover:text-white/80"
       ].join(" ")}>{icon}</div>
@@ -467,16 +467,16 @@ export default function BookingWizard() {
 
             {/* step 1 – guests */}
             <div style={{display: step===1 ? "block" : "none"}}>
-                <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-3">SELECT THE GROUP SIZE FOR YOUR TRIP</p>
-                <div className="grid grid-cols-2 gap-2 md:gap-3">
+                <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-3 md:mb-5 md:mt-8">SELECT THE GROUP SIZE FOR YOUR TRIP</p>
+                <div className="grid grid-cols-2 gap-2 md:gap-4">
                   {GUESTS.map(o=><Card key={o.title} icon={o.icon} title={o.title} sub={o.sub} selected={guests===o.title} onClick={()=>pickGuests(o.title)}/>)}
                 </div>
             </div>
 
             {/* step 2 – budget */}
             <div style={{display: step===2 ? "block" : "none"}}>
-                <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-3">SELECT YOUR BUDGET RANGE</p>
-                <div className="grid grid-cols-2 gap-2 md:gap-3">
+                <p className="text-white/35 text-[11px] font-semibold tracking-widest uppercase mb-3 md:mb-5 md:mt-8">SELECT YOUR BUDGET RANGE</p>
+                <div className="grid grid-cols-2 gap-2 md:gap-4">
                   {BUDGETS.map(o=><Card key={o.title} icon={o.icon} title={o.title} sub={o.sub} selected={budget===o.title} onClick={()=>pickBudget(o.title)}/>)}
                 </div>
             </div>
