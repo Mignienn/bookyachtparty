@@ -495,7 +495,7 @@ export default function BookingWizard() {
 
         {/* ── action buttons ── */}
         {!submitted && (
-          <div className="flex-shrink-0 flex items-center justify-between px-5 py-3 z-20">
+          <div className="flex-shrink-0 flex items-center justify-between px-5 py-3 mb-2 z-20">
             {/* back */}
             <div>
               {step>0 && (
