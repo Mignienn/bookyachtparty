@@ -385,6 +385,12 @@ export default function BookingWizard() {
     } catch (err) {
       console.error("Lead save error:", err);
     }
+    // Google Ads conversion tracking
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-17992351487/_BOBCNzgnYMcEP_9tYND",
+      });
+    }
     setLoading(false); setSubmitted(true);
   };
 
