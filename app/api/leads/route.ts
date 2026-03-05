@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 import { supabase } from "@/lib/supabase";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Basic rate limit: track IPs with timestamps
 const recentSubmissions = new Map<string, number>();
@@ -65,6 +68,28 @@ export async function POST(req: Request) {
         { error: "Failed to save lead." },
         { status: 500 }
       );
+    }
+
+    // Send email notification
+    try {
+      await resend.emails.send({
+        from: "BookYachtParty <onboarding@resend.dev>",
+        to: "bookyachtparty@outlook.com",
+        subject: `New Lead: ${sanitize(name)}`,
+        html: `
+          <h2>New Lead Received</h2>
+          <table style="border-collapse:collapse;font-family:sans-serif;">
+            <tr><td style="padding:8px;font-weight:bold;">Name</td><td style="padding:8px;">${sanitize(name)}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;">Email</td><td style="padding:8px;">${sanitize(email)}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;">Phone</td><td style="padding:8px;">${sanitize(phone)}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;">Date</td><td style="padding:8px;">${date ? sanitize(date) : "Not specified"}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;">Guests</td><td style="padding:8px;">${guests ? sanitize(guests) : "Not specified"}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;">Budget</td><td style="padding:8px;">${budget ? sanitize(budget) : "Not specified"}</td></tr>
+          </table>
+        `,
+      });
+    } catch (emailErr) {
+      console.error("Email notification failed:", emailErr);
     }
 
     return NextResponse.json({ success: true });
