@@ -24,9 +24,9 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.error("Supabase insert error:", error);
+      console.error("Supabase insert error:", JSON.stringify(error));
       return NextResponse.json(
-        { error: "Failed to save lead." },
+        { error: "Failed to save lead.", details: error.message },
         { status: 500 }
       );
     }
