@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { supabase } from "@/lib/supabase";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Basic rate limit: track IPs with timestamps
 const recentSubmissions = new Map<string, number>();
@@ -30,9 +30,9 @@ export async function POST(req: Request) {
     recentSubmissions.set(ip, now);
     // Clean old entries every 100 submissions
     if (recentSubmissions.size > 100) {
-      for (const [k, v] of recentSubmissions) {
+      recentSubmissions.forEach((v, k) => {
         if (now - v > 60000) recentSubmissions.delete(k);
-      }
+      });
     }
 
     const body = await req.json();
@@ -72,7 +72,7 @@ export async function POST(req: Request) {
 
     // Send email notification
     try {
-      await resend.emails.send({
+      if (resend) await resend.emails.send({
         from: "BookYachtParty <onboarding@resend.dev>",
         to: "bookyachtparty@outlook.com",
         subject: `New Lead: ${sanitize(name)}`,
