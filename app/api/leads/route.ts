@@ -77,7 +77,7 @@ export async function POST(req: Request) {
       if (resend) {
         const emailResult = await resend.emails.send({
         from: "BookYachtParty <onboarding@resend.dev>",
-        to: "n.mignien05@gmail.com",
+        to: "bookyachtparty@outlook.com",
         subject: `New Lead: ${sanitize(name)}`,
         html: `
           <h2>New Lead Received</h2>
