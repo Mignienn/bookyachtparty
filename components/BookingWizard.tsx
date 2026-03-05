@@ -388,7 +388,7 @@ export default function BookingWizard() {
     // Google Ads conversion tracking
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "conversion", {
-        send_to: "AW-1752419546/_BOBCNzgnYMcEP_9tYND",
+        send_to: "AW-758350698/",
       });
     }
     setLoading(false); setSubmitted(true);
