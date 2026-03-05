@@ -267,7 +267,7 @@ function BottomBar() {
         </div>
       </div>
       {/* DESKTOP: dark translucent bar at bottom */}
-      <div className="hidden md:flex flex-shrink-0 items-center justify-between bg-black/50 backdrop-blur-md border-t border-white/10 px-8 py-2.5">
+      <div className="hidden md:flex flex-shrink-0 items-center justify-between bg-black border-t border-white/10 px-8 py-2.5">
         <div className="flex items-center gap-2">
           <div className="bg-white rounded px-1.5 py-0.5 text-[10px] font-black text-blue-800 tracking-widest">VISA</div>
           <div className="flex">
