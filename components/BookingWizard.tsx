@@ -93,25 +93,25 @@ function Calendar({ value, onChange }: { value: string; onChange: (d: string) =>
   const isTod  = (d: number) => str(d) === today.toISOString().split("T")[0];
   const isSel  = (d: number) => str(d) === value;
   return (
-    <div className="w-full max-w-2xl mx-auto select-none">
+    <div className="w-full max-w-md md:max-w-2xl mx-auto select-none">
       <div className="flex items-center justify-between mb-4">
         <button onClick={() => setV(vv => vv.m===0?{m:11,y:vv.y-1}:{m:vv.m-1,y:vv.y})}
           className="w-8 h-8 rounded-full flex items-center justify-center text-white/50 hover:text-[#64B5F6] hover:bg-white/10 text-xl transition-colors">‹</button>
-        <span className="text-white font-bold tracking-wide text-lg">{MONTHS[v.m]} {v.y}</span>
+        <span className="text-white font-bold tracking-wide text-base md:text-lg">{MONTHS[v.m]} {v.y}</span>
         <button onClick={() => setV(vv => vv.m===11?{m:0,y:vv.y+1}:{m:vv.m+1,y:vv.y})}
           className="w-8 h-8 rounded-full flex items-center justify-center text-white/50 hover:text-[#64B5F6] hover:bg-white/10 text-xl transition-colors">›</button>
       </div>
       <div className="grid grid-cols-7 mb-2">
         {WDAYS.map(d=><div key={d} className="text-center text-white/40 text-sm py-1 font-medium">{d}</div>)}
       </div>
-      <div className="grid grid-cols-7 gap-y-2">
+      <div className="grid grid-cols-7 gap-y-1 md:gap-y-2">
         {Array(first).fill(null).map((_,i)=><div key={`b${i}`}/>)}
         {Array.from({length:count},(_,i)=>i+1).map(d=>{
           const p=past(d),s=isSel(d),t=isTod(d);
           return (
             <button key={d} disabled={p} onClick={()=>onChange(str(d))}
               className={[
-                "h-11 w-11 mx-auto rounded-full flex items-center justify-center text-base font-medium transition-colors duration-150",
+                "h-9 w-9 md:h-11 md:w-11 mx-auto rounded-full flex items-center justify-center text-sm md:text-base font-medium transition-colors duration-150",
                 s ? "bg-[#64B5F6] text-[#0a0f2c] font-bold shadow-lg shadow-[#64B5F6]/50 scale-110 " :
                 p ? "text-white/15 cursor-not-allowed" :
                 t ? "border border-[#64B5F6]/60 text-[#64B5F6] hover:bg-[#64B5F6]/20" :
@@ -399,16 +399,16 @@ export default function BookingWizard() {
         <div className={`text-center px-4 mt-1 md:mt-3 flex-shrink-0 ${contentClass}`}>
 
           <div style={{display: step===0 ? "block" : "none"}}>
-              <h1 className="text-white font-bold text-2xl md:text-4xl lg:text-5xl leading-tight mt-3">
+              <h1 className="text-white font-bold text-xl md:text-4xl lg:text-5xl leading-tight mt-1 md:mt-3">
                 Check Yacht Availability
               </h1>
-              <div className="mt-2 flex items-center justify-center gap-3">
-                <span className="inline-block bg-[#64B5F6] text-white font-bold text-2xl md:text-3xl px-5 py-1 rounded-xl" style={{fontFamily:"'Poppins',sans-serif"}}>
+              <div className="mt-1 md:mt-2 flex items-center justify-center gap-2 md:gap-3 flex-wrap">
+                <span className="inline-block bg-[#64B5F6] text-white font-bold text-lg md:text-3xl px-4 md:px-5 py-1 rounded-xl" style={{fontFamily:"'Poppins',sans-serif"}}>
                   In Marbella
                 </span>
-                <span className="inline-block bg-white/10 border border-[#64B5F6]/50 text-[#64B5F6] font-bold text-lg md:text-2xl px-5 py-1 rounded-xl backdrop-blur-sm shadow-lg shadow-[#64B5F6]/20">Free DJ Included</span>
+                <span className="hidden md:inline-block bg-white/10 border border-[#64B5F6]/50 text-[#64B5F6] font-bold text-2xl px-5 py-1 rounded-xl backdrop-blur-sm shadow-lg shadow-[#64B5F6]/20">Free DJ Included</span>
               </div>
-              <p className="text-white/55 mt-2.5 text-sm">Pick your date to view available yachts on live calendar</p>
+              <p className="text-white/55 mt-1.5 md:mt-2.5 text-xs md:text-sm">Pick your date to view available yachts on live calendar</p>
           </div>
           <div style={{display: step===1 ? "block" : "none"}}>
               <h1 className="text-white font-bold text-2xl md:text-5xl" style={{fontFamily:"'Poppins',sans-serif"}}>
@@ -433,13 +433,13 @@ export default function BookingWizard() {
         </div>
 
         {/* step content */}
-        <div className={`flex-1 overflow-y-auto px-4 md:px-8 mt-4 min-h-0 ${contentClass}`}>
+        <div className={`flex-1 ${step===0 ? "overflow-hidden" : "overflow-y-auto"} px-4 md:px-8 mt-2 md:mt-4 min-h-0 ${contentClass}`}>
           <div className="w-full max-w-2xl mx-auto">
 
             {/* step 0 – date */}
             <div style={{display: step===0 ? "block" : "none"}}>
-              <div className="rounded-3xl p-5 md:p-8">
-                <p className="text-white font-semibold text-[11px] tracking-widest uppercase mb-5">SELECT DATE</p>
+              <div className="rounded-3xl p-2 md:p-8">
+                <p className="text-white font-semibold text-[11px] tracking-widest uppercase mb-2 md:mb-5">SELECT DATE</p>
                 <Calendar value={date} onChange={setDate}/>
               </div>
             </div>
@@ -512,7 +512,7 @@ export default function BookingWizard() {
             <div>
               {step===0 && (
                 <button onClick={next} disabled={!date}
-                  className="group flex items-center gap-3 bg-[#64B5F6] hover:bg-[#90CAF9] text-white font-bold px-8 py-3 md:px-10 md:py-4 rounded-full text-base md:text-lg transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
+                  className="group flex items-center gap-2 md:gap-3 bg-[#64B5F6] hover:bg-[#90CAF9] text-white font-bold px-5 py-2.5 md:px-10 md:py-4 rounded-full text-sm md:text-lg transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
                   style={{boxShadow: date ? "0 4px 30px rgba(100,181,246,0.4)" : undefined}}>
                   Continue
                   <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -522,7 +522,7 @@ export default function BookingWizard() {
               )}
               {(step===1||step===2) && (
                 <a href="https://wa.me/34600000000" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 bg-green-500 hover:bg-green-400 text-white font-bold px-5 py-3 rounded-full text-sm transition-colors"
+                  className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-bold px-4 py-2.5 md:px-5 md:py-3 rounded-full text-xs md:text-sm transition-colors"
                   style={{boxShadow:"0 4px 20px rgba(34,197,94,0.4)"}}>
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -532,7 +532,7 @@ export default function BookingWizard() {
               )}
               {step===3 && (
                 <button onClick={submit} disabled={loading||!name||!email||!phone}
-                  className="flex items-center gap-2.5 bg-[#64B5F6] hover:bg-[#90CAF9] text-white font-bold px-6 py-3 rounded-full text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 bg-[#64B5F6] hover:bg-[#90CAF9] text-white font-bold px-4 py-2.5 md:px-6 md:py-3 rounded-full text-xs md:text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{boxShadow:(name&&email&&phone)?"0 4px 30px rgba(201,168,76,0.4)":undefined}}>
                   {loading
                     ? <><div className="w-4 h-4 border-2 border-[#0a0f2c]/30 border-t-[#0a0f2c] rounded-full animate-spin"/>Sending…</>
