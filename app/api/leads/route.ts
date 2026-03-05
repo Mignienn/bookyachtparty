@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { supabase } from "@/lib/supabase";
 
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+const resendKey = (process.env.RESEND_API_KEY || "").replace(/\s+/g, "");
+const resend = resendKey ? new Resend(resendKey) : null;
 
 // Basic rate limit: track IPs with timestamps
 const recentSubmissions = new Map<string, number>();
@@ -72,9 +73,11 @@ export async function POST(req: Request) {
 
     // Send email notification
     try {
-      if (resend) await resend.emails.send({
+      console.log("Resend initialized:", !!resend, "Key length:", resendKey.length);
+      if (resend) {
+        const emailResult = await resend.emails.send({
         from: "BookYachtParty <onboarding@resend.dev>",
-        to: "bookyachtparty@outlook.com",
+        to: "n.mignien05@gmail.com",
         subject: `New Lead: ${sanitize(name)}`,
         html: `
           <h2>New Lead Received</h2>
@@ -87,7 +90,9 @@ export async function POST(req: Request) {
             <tr><td style="padding:8px;font-weight:bold;">Budget</td><td style="padding:8px;">${budget ? sanitize(budget) : "Not specified"}</td></tr>
           </table>
         `,
-      });
+        });
+        console.log("Email send result:", JSON.stringify(emailResult));
+      }
     } catch (emailErr) {
       console.error("Email notification failed:", emailErr);
     }
