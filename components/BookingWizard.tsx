@@ -392,7 +392,7 @@ export default function BookingWizard() {
     // Google Ads conversion tracking
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "conversion", {
-        send_to: "AW-17992351487/z3QRCMyWqIccEP_9tYND",
+        send_to: "AW-17992351487/_BOBCNzgnYMcEP_9tYND",
         value: 1.0,
         currency: "CAD",
       });
