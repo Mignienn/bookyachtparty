@@ -389,13 +389,12 @@ export default function BookingWizard() {
     } catch (err) {
       console.error("Lead save error:", err);
     }
-    // Google Ads conversion tracking
+    // Google Ads conversion tracking — fire all 3 conversion actions
     if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "conversion", {
-        send_to: "AW-17992351487/_BOBCNzgnYMcEP_9tYND",
-        value: 1.0,
-        currency: "CAD",
-      });
+      const g = (window as any).gtag;
+      g("event", "conversion", { send_to: "AW-17992351487/_BOBCNzgnYMcEP_9tYND" });
+      g("event", "conversion", { send_to: "AW-17992351487/5t8dCL65ooMcEP_9tYND", value: 1.0, currency: "AED" });
+      g("event", "conversion", { send_to: "AW-17992351487/z3QRCMyWqIccEP_9tYND", value: 1.0, currency: "CAD" });
     }
     setLoading(false);
     if (ok) {
