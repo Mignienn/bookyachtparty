@@ -208,18 +208,9 @@ function Logo() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-10"
              style={{background:"radial-gradient(ellipse at top, rgba(100,181,246,0.4) 0%, transparent 70%)"}}/>
         {/* content */}
-        <div className="relative flex flex-col items-center gap-1">
-          <div className="inline-flex items-center gap-2.5">
-            <span className="text-lg">⚓</span>
-            <span className="text-[#0077B6] font-sans font-bold text-base tracking-wide">Book</span>
-            <span className="text-white font-sans font-bold text-base tracking-wide">Yacht</span>
-            <span className="text-[#0077B6] font-sans font-bold text-base tracking-wide">Party</span>
-          </div>
-          <div className="inline-flex items-center gap-1.5">
-            <span className="text-white/50 text-[10px] font-medium tracking-wide">By</span>
-            <img src="/kaprilux-logo.png" alt="Kaprilux" className="w-4 h-4 rounded-full"/>
-            <span className="text-white/70 text-[10px] font-semibold tracking-wide">Kaprilux</span>
-          </div>
+        <div className="relative flex items-center gap-2">
+            <img src="/kaprilux-logo.png" alt="Kaprilux" className="w-5 h-5 rounded-full"/>
+            <span className="text-white font-sans font-bold text-base tracking-wide">Kaprilux</span>
         </div>
       </div>
     </div>
