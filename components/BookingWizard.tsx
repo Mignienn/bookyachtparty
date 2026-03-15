@@ -2,17 +2,26 @@
 
 import { useState, useEffect, useMemo } from "react";
 
-/* ─── background per step (Pexels – verified URLs) ─── */
-const BG = [
-  // Step 1 – Boat party in Marbella (custom photo)
-  "/hero-party.jpg",
-  // Step 2 – Girls dancing on yacht
-  "/step2-yacht-girls.jpg",
-  // Step 3 – Puerto Banús marina
-  "/step3-marina.jpg",
-  // Step 4 – DJ set on yacht at sunset
-  "/step4-dj-sunset.jpg",
-];
+/* ─── campaign variants ─── */
+export type CampaignVariant = "A" | "B" | "C";
+
+const VARIANT_CONFIG: Record<CampaignVariant, { bg: string[]; title: string; subtitle: string }> = {
+  A: {
+    bg: ["/hero-party.jpg", "/step2-yacht-girls.jpg", "/step3-marina.jpg", "/step4-dj-sunset.jpg"],
+    title: "Check Yacht Availability",
+    subtitle: "In Marbella",
+  },
+  B: {
+    bg: ["/hen-party-hero.jpg", "/step2-yacht-girls.jpg", "/step3-marina.jpg", "/step4-dj-sunset.jpg"],
+    title: "Hen Party on a Yacht",
+    subtitle: "In Marbella",
+  },
+  C: {
+    bg: ["/boat-party-hero.jpg", "/step2-yacht-girls.jpg", "/step3-marina.jpg", "/step4-dj-sunset.jpg"],
+    title: "Boat Party",
+    subtitle: "In Marbella",
+  },
+};
 
 /* overlay gradient per step — festive colour theme */
 const OVERLAY = [
@@ -328,7 +337,9 @@ const BUDGETS = [
     icon:<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg> },
 ];
 
-export default function BookingWizard() {
+export default function BookingWizard({ variant = "A" }: { variant?: CampaignVariant }) {
+  const config = VARIANT_CONFIG[variant];
+  const BG = config.bg;
   const [mounted,   setMounted]   = useState(false);
   const [step,      setStep]      = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -428,11 +439,11 @@ export default function BookingWizard() {
 
           <div style={{display: step===0 ? "block" : "none"}}>
               <h1 className="text-white font-bold text-xl md:text-4xl lg:text-5xl leading-tight mt-1 md:mt-3">
-                Check Yacht Availability
+                {config.title}
               </h1>
               <div className="mt-1 md:mt-2 flex items-center justify-center gap-2 md:gap-3 flex-wrap">
                 <span className="inline-block bg-[#64B5F6] text-white font-bold text-lg md:text-3xl px-4 md:px-5 py-1 rounded-xl" style={{fontFamily:"'Poppins',sans-serif"}}>
-                  In Marbella
+                  {config.subtitle}
                 </span>
                 <span className="hidden md:inline-block bg-white/10 border border-[#64B5F6]/50 text-[#64B5F6] font-bold text-2xl px-5 py-1 rounded-xl backdrop-blur-sm shadow-lg shadow-[#64B5F6]/20">Free DJ Included</span>
               </div>
