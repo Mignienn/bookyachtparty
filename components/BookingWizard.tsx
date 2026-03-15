@@ -13,7 +13,7 @@ const VARIANT_CONFIG: Record<CampaignVariant, { bg: string[]; title: string; sub
   },
   B: {
     bg: ["/hen-party-hero.jpg", "/step2-yacht-girls.jpg", "/step3-marina.jpg", "/step4-dj-sunset.jpg"],
-    title: "Hen Party on a Yacht",
+    title: "Book Your Hen Party On A Yacht",
     subtitle: "In Marbella",
   },
   C: {
@@ -438,7 +438,7 @@ export default function BookingWizard({ variant = "A" }: { variant?: CampaignVar
         <div className={`text-center px-4 mt-1 md:mt-3 flex-shrink-0 ${contentClass}`}>
 
           <div style={{display: step===0 ? "block" : "none"}}>
-              <h1 className="text-white font-bold text-xl md:text-4xl lg:text-5xl leading-tight mt-1 md:mt-3">
+              <h1 className={`text-white font-bold leading-tight mt-1 md:mt-3 whitespace-nowrap ${config.title.length > 25 ? "text-[4.2vw] md:text-4xl lg:text-5xl" : "text-xl md:text-4xl lg:text-5xl"}`}>
                 {config.title}
               </h1>
               <div className="mt-1 md:mt-2 flex items-center justify-center gap-2 md:gap-3 flex-wrap">
