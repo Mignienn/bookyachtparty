@@ -18,7 +18,7 @@ const VARIANT_CONFIG: Record<CampaignVariant, { bg: string[]; title: string; sub
   },
   C: {
     bg: ["/boat-party-hero.jpg", "/step2-yacht-girls.jpg", "/step3-marina.jpg", "/step4-dj-sunset.jpg"],
-    title: "Boat Party",
+    title: "Book Your Yacht Party",
     subtitle: "In Marbella",
   },
 };
